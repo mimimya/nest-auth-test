@@ -23,3 +23,13 @@ Content-Type: : application/json
 
 ### Delete User 유저 삭제
 DELETE http://localhost:3000/user/delete/testy@good.com
+
+### 잘못된 이메일을 입력한 경우
+POST http://localhost:3000/user/create
+Content-Type: application/json
+
+{
+    "username" : "testyy",
+    "password" : "qwerty",
+    "email" : "WrOnGeMaIl"
+}
