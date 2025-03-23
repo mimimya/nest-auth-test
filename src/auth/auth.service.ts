@@ -26,4 +26,19 @@ export class AuthService {
 
     }
 
+    async validateUser(email: string, password: string) {
+        const user = await this.userService.getUser(email);
+        if(!user) {
+            return null;
+        }
+        const { password: hashedPassword, ...userInfo } = user;
+        if (!hashedPassword) {return null;}
+        if (bcrypt.compareSync(password, hashedPassword)) {
+            // Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
+            // Type 'undefined' is not assignable to type 'string'.ts(2345)
+            return userInfo;
+        }
+        return null
+    }
+
 }

@@ -1,3 +1,4 @@
+### 회원가입
 POST http://localhost:3000/auth/register
 Content-Type: application/json
 
@@ -5,4 +6,13 @@ Content-Type: application/json
     "email" : "testy@audi.com",
     "password" : "1234",
     "username" : "testy"
+}
+
+### 로그인
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+    "email" : "testy@audi.com",
+    "password": "12345"
 }
