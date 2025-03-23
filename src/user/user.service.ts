@@ -17,14 +17,11 @@ export class UserService {
         const result = await this.userRepository.findOne({
             where:{ email },
         });
-        if (!result) {
-            throw new Error(`User with email ${email} not found`);
-        }
         return result;
     }
 
     async updateUser(email, _user) :Promise<User> {
-        const user : User = await this.getUser(email);
+        const user : any = await this.getUser(email);
         
         // 유저가 존재하지 않는 경우 예외 처리
         if (!user) {

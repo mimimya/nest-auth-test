@@ -9,7 +9,7 @@ export class User {
   email: string;
 
   @Column()
-  password: string;
+  password?: string; //auth.service.ts : user.password = undefined;
 
   @Column()
   username: string;
