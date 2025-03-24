@@ -16,3 +16,22 @@ Content-Type: application/json
     "email" : "testy@audi.com",
     "password": "12345"
 }
+
+### 로그인 2
+POST http://localhost:3000/auth/login2
+Content-Type: application/json
+
+{
+    "email" : "testy@audi.com",
+    "password": "1234"
+}
+
+
+### Guard 테스트
+GET http://localhost:3000/auth/test-guard
+
+### 쿠키 조회 테스트
+GET http://localhost:3000/auth/show-cookies
+
+### 로그아웃 테스트
+GET http://localhost:3000/auth/logout
