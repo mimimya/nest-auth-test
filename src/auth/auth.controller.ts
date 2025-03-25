@@ -1,7 +1,7 @@
 import { Post, Body, Controller, Get, Request, Response, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from 'src/user/user.dto';
-import { LoginGuard } from './auth.guard';
+import { AuthenticatedGuard, LocalAuthGuard, LoginGuard } from './auth.guard';
 
 
 @Controller('auth')
@@ -65,4 +65,17 @@ export class AuthController {
         res.clearCookie('login'); // 쿠키 삭제
         return res.send({ message: '로그아웃되었습니다.' });
     }
+
+    @UseGuards(LocalAuthGuard)
+    @Post('login3')
+    login3(@Request() req) {
+        return req.user;
+    }
+    
+    @UseGuards(AuthenticatedGuard)
+    @Get('test-guard2')
+    testGuardWithSession(@Request() req) {
+        return req.user;
+    }
+    
 }

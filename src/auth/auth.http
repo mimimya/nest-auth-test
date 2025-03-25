@@ -35,3 +35,25 @@ GET http://localhost:3000/auth/show-cookies
 
 ### 로그아웃 테스트
 GET http://localhost:3000/auth/logout
+
+
+### 로그인 3 : session 사용
+POST http://localhost:3000/auth/login3
+Content-Type: application/json
+
+{
+    "email" : "testy@audi.com",
+    "password": "1234"
+}
+
+### 로그인3 : 틀린 패스워드
+POST http://localhost:3000/auth/login3
+Content-Type: application/json
+
+{
+    "email" : "testy@audi.com",
+    "password": "12344"
+}
+
+### 인증 성공 테스트
+GET http://localhost:3000/auth/test-guard2

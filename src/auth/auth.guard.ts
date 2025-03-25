@@ -1,7 +1,7 @@
 import { CanActivate, ExecutionContext, Injectable } from "@nestjs/common";
 import { AuthService } from "./auth.service";
+import { AuthGuard } from "@nestjs/passport";
 import { Observable } from "rxjs";
-
 @Injectable()
 export class LoginGuard implements CanActivate {
     /*
@@ -35,5 +35,24 @@ export class LoginGuard implements CanActivate {
         }
         request.user = user;
         return true;
+    }
+}
+
+@Injectable()
+export class LocalAuthGuard extends AuthGuard('local') {
+    async canActivate(context: ExecutionContext): Promise<boolean> {
+        const result = (await super.canActivate(context)) as boolean;
+        // 로컬 스트레티지 실행
+        const request = context.switchToHttp().getRequest();
+        await super.logIn(request); // 내부적으로 request에 있는 user 정보를 꺼내 전달할 때  serializeUser() 실행함
+        return result;
+    }
+}
+
+@Injectable()
+export class AuthenticatedGuard implements CanActivate {
+    canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
+        const request = context.switchToHttp().getRequest();
+        return request.isAuthenticated(); // 세션에서 정보를 읽어 인증 확인
     }
 }
