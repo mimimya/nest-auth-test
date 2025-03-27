@@ -8,7 +8,7 @@ export class User {
   @Column({ unique: true }) //중복 허용하지 않음
   email: string;
 
-  @Column()
+  @Column({ nullable: true }) // OAuth 인증 시 알 수 없음
   password?: string; //auth.service.ts : user.password = undefined;
 
   @Column()
@@ -16,4 +16,8 @@ export class User {
 
   @Column({ default: true }) // 기본값 사용
   createdDt: Date = new Date();
+
+  @Column({ nullable: true }) // OAuth 이외 가입자
+  providerId: string; // OAuth 인증 시 식별자
 }
+

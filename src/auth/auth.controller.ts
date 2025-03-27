@@ -1,7 +1,7 @@
 import { Post, Body, Controller, Get, Request, Response, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from 'src/user/user.dto';
-import { AuthenticatedGuard, LocalAuthGuard, LoginGuard } from './auth.guard';
+import { GoogleAuthGuard, AuthenticatedGuard, LocalAuthGuard, LoginGuard } from './auth.guard';
 
 
 @Controller('auth')
@@ -78,4 +78,14 @@ export class AuthController {
         return req.user;
     }
     
+    @UseGuards(GoogleAuthGuard)
+    @Get('to-google') // 구글 로그인으로 이동
+    async googleAuth(@Request() req){}
+
+    @UseGuards(GoogleAuthGuard)
+    @Get('google')
+    async googleAuthRedirect(@Request() req, @Response() res){
+        const { user } = req;
+        return res.send(user);
+    }
 }
